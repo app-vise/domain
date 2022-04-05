@@ -1,6 +1,6 @@
 {
   "name": "@appvise/domain",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Base package for building Domain-Driven Hexagon applications in TypeScript",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/app-vise/domain#readme",
   "dependencies": {
+    "@nestjs/common": "^8.4.3",
     "@nestjs/cqrs": "^8.0.3",
     "uuid": "^8.3.2"
   },
