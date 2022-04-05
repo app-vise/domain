@@ -1,6 +1,6 @@
 {
   "name": "@appvise/domain",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Base package for building Domain-Driven Hexagon applications in TypeScript",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -9,6 +9,7 @@
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable",
+    "postversion": "git push --follow-tags",
     "build": "npm run build:cjs && npm run build:esm && npm run build:types",
     "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
     "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
