@@ -22,7 +22,7 @@ jobs:
   build:
 
     runs-on: ${{ matrix.os }}
-    name: "${{ matrix.os }} ${{ matrix.nodeversion }}"
+    name: "${{ matrix.os }} ${{ matrix.node }}"
 
     strategy:
       matrix:
@@ -34,10 +34,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: npm ci
       - name: Run build
