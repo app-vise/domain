@@ -1,8 +1,13 @@
-## @appvise/domain
+![Test MacOS](https://github.com/app-vise/domain/actions/workflows/test-macos.yml/badge.svg)
+![Test Ubuntu](https://github.com/app-vise/domain/actions/workflows/test-ubuntu.yml/badge.svg)
+![Test Windows](https://github.com/app-vise/domain/actions/workflows/test-windows.yml/badge.svg)
+
+
+# @appvise/domain
 
 Base package for building Domain-Driven Hexagon applications in TypeScript
 
-# Updating
+## Updating
 
 **Build**
 
@@ -14,6 +19,6 @@ Base package for building Domain-Driven Hexagon applications in TypeScript
 `npm version minor`
 `npm version patch`
 
-# Sources
+## Sources
 - Heavily inspired by: https://github.com/Sairyss/domain-driven-hexagon
 - https://www.npmjs.com/package/example-typescript-package
