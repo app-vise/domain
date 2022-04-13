@@ -12,4 +12,5 @@ export abstract class WriteRepository<TEntity> {
   ): Promise<TEntity>;
   abstract save(entity: TEntity): Promise<TEntity>;
   abstract delete(entity: TEntity): Promise<void>;
+  abstract setCorrelationId(correlationId: string): this;
 }

@@ -1,5 +1,3 @@
-import { AggregateRoot as NestAggregateRoot } from '@nestjs/cqrs';
-
 import {
   ArgumentNotProvidedException,
   ArgumentInvalidException,
@@ -21,16 +19,13 @@ export interface CreateEntityProps<T> {
   updatedAt?: DateVO;
 }
 
-// TODO: Decouple from NestAggregateRoot
-export abstract class Entity<EntityProps> extends NestAggregateRoot {
+export abstract class Entity<EntityProps> {
   constructor({
     id,
     createdAt,
     updatedAt,
     props,
   }: CreateEntityProps<EntityProps>) {
-    super();
-
     this.setId(id);
     this.validateProps(props);
     const now = DateVO.now();
@@ -47,7 +42,7 @@ export abstract class Entity<EntityProps> extends NestAggregateRoot {
 
   private readonly _createdAt: DateVO;
 
-  private _updatedAt: DateVO;
+  private readonly _updatedAt: DateVO;
 
   get id(): ID {
     return this._id;
