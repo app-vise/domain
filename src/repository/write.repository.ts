@@ -11,6 +11,7 @@ export abstract class WriteRepository<TEntity> {
     selectionSet?: SelectionSet
   ): Promise<TEntity>;
   abstract save(entity: TEntity): Promise<TEntity>;
+  abstract save(entity: TEntity, reload?: boolean): Promise<TEntity>;
   abstract delete(entity: TEntity): Promise<void>;
   abstract setCorrelationId(correlationId: string): this;
 }
