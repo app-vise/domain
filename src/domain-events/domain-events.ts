@@ -38,7 +38,8 @@ export class DomainEvents {
     id: ID,
     aggregateType: string,
     logger: Logger,
-    correlationId?: string
+    correlationId?: string,
+    async = true
   ): Promise<void> {
     const aggregate = this.findAggregateByID(id, aggregateType);
 
@@ -46,17 +47,32 @@ export class DomainEvents {
       logger.debug(
         `[${aggregate.domainEvents.map(
           (event) => event.constructor.name
-        )}] published ${aggregate.id.value}`
+        )}] publish ${aggregate.id.value}`
       );
-      await Promise.all(
-        aggregate.domainEvents.map((event: DomainEvent) => {
+
+      if (async) {
+        await Promise.all(
+          aggregate.domainEvents.map((event: DomainEvent) => {
+            if (correlationId && !event.correlationId) {
+              event.correlationId = correlationId;
+            }
+            return this.publish(id, aggregateType, event, logger);
+          })
+        );
+      } else {
+        for (let i = 0; i < aggregate.domainEvents.length; i++) {
+          const event = aggregate.domainEvents[i];
+
           if (correlationId && !event.correlationId) {
             event.correlationId = correlationId;
           }
-          return this.publish(id, aggregateType, event, logger);
-        })
-      );
+
+          await this.publish(id, aggregateType, event, logger);
+        }
+      }
+
       aggregate.clearEvents();
+
       this.removeAggregateFromPublishList(aggregate);
     }
   }
