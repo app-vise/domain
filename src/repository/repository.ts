@@ -24,5 +24,6 @@ export abstract class Repository<TEntity> {
 
   // Write repository
   abstract save(entity: TEntity): Promise<TEntity>;
+  abstract save(entity: TEntity, reload?: boolean): Promise<TEntity>;
   abstract delete(entity: TEntity): Promise<void>;
 }
