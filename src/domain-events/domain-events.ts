@@ -24,7 +24,11 @@ export class DomainEvents {
   }
 
   public static prepareForPublish(aggregate: AggregateRoot<unknown>): void {
-    const aggregateFound = !!this.findAggregateByID(aggregate.id);
+    const aggregateType = aggregate.constructor.name;
+    const aggregateFound = !!this.findAggregateByID(
+      aggregate.id,
+      aggregateType
+    );
     if (!aggregateFound) {
       this.aggregates.push(aggregate);
     }
@@ -32,10 +36,11 @@ export class DomainEvents {
 
   public static async publishEvents(
     id: ID,
+    aggregateType: string,
     logger: Logger,
     correlationId?: string
   ): Promise<void> {
-    const aggregate = this.findAggregateByID(id);
+    const aggregate = this.findAggregateByID(id, aggregateType);
 
     if (aggregate) {
       logger.debug(
@@ -48,7 +53,7 @@ export class DomainEvents {
           if (correlationId && !event.correlationId) {
             event.correlationId = correlationId;
           }
-          return this.publish(id, event, logger);
+          return this.publish(id, aggregateType, event, logger);
         })
       );
       aggregate.clearEvents();
@@ -56,9 +61,15 @@ export class DomainEvents {
     }
   }
 
-  private static findAggregateByID(id: ID): AggregateRoot<unknown> | undefined {
+  private static findAggregateByID(
+    id: ID,
+    aggregateType: string
+  ): AggregateRoot<unknown> | undefined {
     for (const aggregate of this.aggregates) {
-      if (aggregate.id.equals(id)) {
+      if (
+        aggregate.id.equals(id) &&
+        aggregate.constructor.name === aggregateType
+      ) {
         return aggregate;
       }
     }
@@ -67,12 +78,16 @@ export class DomainEvents {
   private static removeAggregateFromPublishList(
     aggregate: AggregateRoot<unknown>
   ): void {
-    const index = this.aggregates.findIndex((a) => a.equals(aggregate));
+    const aggregateType = aggregate.constructor.name;
+    const index = this.aggregates.findIndex(
+      (a) => a.equals(aggregate) && a.constructor.name === aggregateType
+    );
     this.aggregates.splice(index, 1);
   }
 
   private static async publish(
     id: ID,
+    aggregateType: string,
     event: DomainEvent,
     logger: Logger
   ): Promise<void> {
@@ -89,7 +104,7 @@ export class DomainEvents {
           );
 
           // Prevents infinite loop when updating after a save on same aggregate
-          this.findAggregateByID(id)?.markEventAsSent(eventName);
+          this.findAggregateByID(id, aggregateType)?.markEventAsSent(eventName);
 
           return handler.handle(event);
         })
