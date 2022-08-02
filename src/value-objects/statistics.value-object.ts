@@ -1,8 +1,5 @@
 import { ValueObject } from '../base-classes/value-object.base';
-import {
-  ArgumentInvalidException,
-  ArgumentOutOfRangeException,
-} from '../exceptions';
+import { ArgumentInvalidException } from '../exceptions';
 
 export interface StatisticsProps {
   [index: symbol]: number;
@@ -20,12 +17,6 @@ export class Statistics<
     Object.entries(props).forEach(([key, value]) => {
       // Only update defined values
       if (value !== undefined) {
-        if (value < 1) {
-          throw new ArgumentOutOfRangeException(
-            'Amount to add must be positive'
-          );
-        }
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.props[key] += value;
