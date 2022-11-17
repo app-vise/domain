@@ -5,7 +5,6 @@ export class SearchQuery {
   constructor(
     public readonly request: SearchRequest,
     public readonly selectionSet?: SelectionSet,
-    public readonly currentIdentity?: string,
     searchFieldNames?: string[]
   ) {
     // Only auto map search fields when field names are provided
