@@ -1,5 +1,6 @@
-export const removeDuplicatesFromStringArray = (array: Array<string>) => [...new Set(array)];
-
+export const removeDuplicatesFromStringArray = (array: Array<string>) => [
+  ...new Set(array),
+];
 
 export const removeDuplicatesFromObjectArray = (
   array: Array<Record<string, unknown>>
