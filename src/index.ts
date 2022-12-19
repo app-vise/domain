@@ -1,6 +1,7 @@
 export * from './application';
 export * from './base-classes';
 export * from './domain-events';
+export * from './event-bus';
 export * from './exceptions';
 export * from './ports';
 export * from './repository';
