@@ -15,4 +15,5 @@ export enum ExceptionCodes {
   referenceNotFound = 'GENERIC.REFERENCE_NOT_FOUND',
   conflict = 'GENERIC.CONFLICT',
   tokenExpired = 'TOKEN.EXPIRED',
+  invalidStatus = 'INVALID.STATUS',
 }
