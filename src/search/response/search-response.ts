@@ -1,8 +1,11 @@
 import { PageInfo } from './page-info';
 import { SearchResult } from './search-result';
 
-export type SearchResponse<T> = {
-  results: SearchResult<T>[];
+export interface SearchResponse<
+  T,
+  S extends SearchResult<T> = SearchResult<T>
+> {
+  results: S[];
   pageInfo: PageInfo;
   totalCount?: number;
-};
+}
