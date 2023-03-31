@@ -26,6 +26,6 @@ export type FilterType = {
       }
     | StringFilter
     | undefined
-    | Record<string, unknown>;
+    | Record<string, any>;
   // [index: string]: StringFilter | NumericFilter | BooleanFilter | GeoFilter | DateTimeFilter | FilterType[],
 };
