@@ -8,3 +8,7 @@ export interface SearchRequest {
   filter?: FilterType;
   sort?: SortField[];
 }
+
+export interface CountRequest {
+  filter?: FilterType;
+}

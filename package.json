@@ -1,6 +1,6 @@
 {
   "name": "@appvise/domain",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Base package for building Domain-Driven Hexagon applications in TypeScript",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
