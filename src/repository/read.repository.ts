@@ -1,9 +1,9 @@
-import { SearchRequest, SearchResponse } from '../search';
+import { CountRequest, SearchRequest, SearchResponse } from '../search';
 import { SelectionSet } from './selection-set';
 
 export abstract class ReadRepository<TEntity> {
   abstract getCount(
-    request: SearchRequest,
+    request: CountRequest,
     selectionSet?: SelectionSet
   ): Promise<number>;
   abstract find(
