@@ -25,7 +25,7 @@ export class UUID extends ID {
    * @returns the first 16 alphanumeric characters of the UUID.
    */
 
-  protected toTenantId(): string {
+  public toTenantId(): string {
     const strippedId = this.value.replaceAll('-', '');
     return strippedId.substring(0, strippedId.length / 2);
   }
